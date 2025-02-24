@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: "homepage"
+
+  security:
+    user:
+      name: ${USER_ID}
+      password: ${USER_PASSWORD}
