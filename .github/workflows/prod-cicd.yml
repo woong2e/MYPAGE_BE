@@ -27,7 +27,7 @@ jobs:
       - name: Build & Run Tests
         run: |
           ./gradlew clean build -x test
-          
+
   docker-build-and-push:
     name: Build & Push Docker Image
     runs-on: ubuntu-latest
