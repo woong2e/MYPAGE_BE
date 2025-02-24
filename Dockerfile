@@ -5,7 +5,7 @@ FROM openjdk:21-jdk-slim
 WORKDIR /app
 
 # Copy the project’s build artifact (JAR file) to the container
-COPY build/libs/*.jar app.jar
+COPY ./build/libs/*.jar app.jar
 
 # Run the JAR file
 ENTRYPOINT ["java", "-jar", "app.jar"]
