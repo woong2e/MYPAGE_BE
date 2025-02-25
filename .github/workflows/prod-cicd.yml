@@ -77,9 +77,13 @@ jobs:
             docker-compose up -d --force-recreate
             sleep 10
             
-            # 기존 컨테이너 정리 (Blue -> Green or Green -> Blue)
             if [ "$(docker ps --filter "name=app_blue" -q)" ]; then
               docker stop app_blue && docker rm app_blue
-            else
+              ACTIVE_COLOR="green"
+            elif [ "$(docker ps --filter "name=app_green" -q)" ]; then
               docker stop app_green && docker rm app_green
+              ACTIVE_COLOR="blue"
+            else
+              echo "No active Blue-Green container found. Skipping removal."
+              ACTIVE_COLOR="blue"
             fi
