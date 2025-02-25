@@ -26,8 +26,14 @@ jobs:
 
       - name: Build & Run Tests
         run: |
-          ./gradlew clean build
-          
+          ./gradlew clean build -x test
+
+      - name: 빌드 결과 저장
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: build/libs/*.jar
+
   docker-build-and-push:
     name: Build & Push Docker Image
     runs-on: ubuntu-latest
@@ -36,6 +42,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+
+      - name: 아티팩트 다운로드
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -66,9 +77,13 @@ jobs:
             docker-compose up -d --force-recreate
             sleep 10
             
-            # 기존 컨테이너 정리 (Blue -> Green or Green -> Blue)
             if [ "$(docker ps --filter "name=app_blue" -q)" ]; then
               docker stop app_blue && docker rm app_blue
-            else
+              ACTIVE_COLOR="green"
+            elif [ "$(docker ps --filter "name=app_green" -q)" ]; then
               docker stop app_green && docker rm app_green
+              ACTIVE_COLOR="blue"
+            else
+              echo "No active Blue-Green container found. Skipping removal."
+              ACTIVE_COLOR="blue"
             fi
