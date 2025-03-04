@@ -13,13 +13,13 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
+  security:
+    user:
+      name: ${USER_ID}
+      password: ${USER_PASSWORD}
+
 management:
   endpoints:
     web:
       exposure:
         include: health
-
-  security:
-    user:
-      name: ${USER_ID}
-      password: ${USER_PASSWORD}
