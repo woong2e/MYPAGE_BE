@@ -73,17 +73,6 @@ jobs:
           key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
           script: |
             cd /home/ubuntu/deploy
-            docker-compose pull
-            docker-compose up -d --force-recreate
-            sleep 10
             
-            if [ "$(docker ps --filter "name=app_blue" -q)" ]; then
-              docker stop app_blue && docker rm app_blue
-              ACTIVE_COLOR="green"
-            elif [ "$(docker ps --filter "name=app_green" -q)" ]; then
-              docker stop app_green && docker rm app_green
-              ACTIVE_COLOR="blue"
-            else
-              echo "No active Blue-Green container found. Skipping removal."
-              ACTIVE_COLOR="blue"
-            fi
+            chmod +x ./deploy.sh
+            ./deploy.sh
