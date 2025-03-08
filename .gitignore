@@ -6,7 +6,7 @@ build/
 !**/src/test/**/build/
 
 ### application.yml ###
-src/main/resources/application.yml
+
 
 ### STS ###
 .apt_generated
@@ -38,3 +38,7 @@ out/
 
 ### VS Code ###
 .vscode/
+/src/main/resources/.env
+/docker-compose.yml
+/deploy.sh
+/default.conf.template
