@@ -3,10 +3,13 @@ package kr.woong2e.homepage.global.provider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -26,8 +29,10 @@ public class JwtProvider {
     public String create(String userId) {
         Date expiredDate = Date.from(Instant.now().plus(1, ChronoUnit.HOURS));
 
+        Key key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+
         String jwt = Jwts.builder()
-                .signWith(SignatureAlgorithm.ES256, secretKey)
+                .signWith(key, SignatureAlgorithm.ES256)
                 .setSubject(userId).setIssuedAt(new Date()).setExpiration(expiredDate)
                 .compact();
 
@@ -35,16 +40,23 @@ public class JwtProvider {
     }
 
     public String validate(String jwt) {
-        Claims claims = null;
+        String subject = null;
+
+        Key key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
 
         try {
-            claims = Jwts.parser().setSigningKey(secretKey)
-                    .parseClaimsJwt(jwt).getBody();
+            subject = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJwt(jwt)
+                    .getBody()
+                    .getSubject();
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return null;
         }
 
-        return claims.getSubject();
+        return subject;
     }
 }
