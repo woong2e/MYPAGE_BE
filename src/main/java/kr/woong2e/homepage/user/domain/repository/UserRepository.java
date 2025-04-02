@@ -5,6 +5,8 @@ import kr.woong2e.homepage.user.domain.domain.User;
 import java.util.Optional;
 
 public interface UserRepository {
-    Optional<User> findById(Long userId);
 
+    boolean existsByLoginId(String loginId);
+
+    Optional<User> findById(Long userId);
 }
