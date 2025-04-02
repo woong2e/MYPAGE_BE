@@ -6,25 +6,25 @@ import lombok.Getter;
 import org.springframework.http.ResponseEntity;
 
 @Getter
-public class DataResponse<T> extends BaseResponse {
+public class SuccessResponse<T> extends BaseResponse {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final T data;
 
-    protected DataResponse(BaseStatus status, T data) {
+    protected SuccessResponse(BaseStatus status, T data) {
         super(true, status);
         this.data = data;
     }
 
     // 성공 응답 - 페이로드 포함
-    public static <T> ResponseEntity<DataResponse<T>> of(BaseStatus status, T data) {
-        DataResponse<T> responseBody = new DataResponse<>(status, data);
+    public static <T> ResponseEntity<SuccessResponse<T>> of(BaseStatus status, T data) {
+        SuccessResponse<T> responseBody = new SuccessResponse<>(status, data);
         return ResponseEntity.status(status.getHttpStatus()).body(responseBody);
     }
 
     // 성공 응답 - 페이로드 없음
-    public static ResponseEntity<DataResponse<?>> from(BaseStatus status) {
-        DataResponse<?> responseBody = new DataResponse<>(status, null);
+    public static ResponseEntity<SuccessResponse<?>> from(BaseStatus status) {
+        SuccessResponse<?> responseBody = new SuccessResponse<>(status, null);
         return ResponseEntity.status(status.getHttpStatus()).body(responseBody);
     }
 }
