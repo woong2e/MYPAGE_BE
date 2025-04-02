@@ -4,11 +4,18 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import kr.woong2e.homepage.global.exception.NotFoundException;
 import kr.woong2e.homepage.global.provider.JwtProvider;
+import kr.woong2e.homepage.user.application.response.status.UserErrorStatus;
+import kr.woong2e.homepage.user.domain.domain.User;
+import kr.woong2e.homepage.user.domain.repository.UserRepository;
+import kr.woong2e.homepage.user.domain.value.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -17,13 +24,15 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private static final String AUTHORIZATION_HEADER = "Authorization";
-
+    private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
 
 
@@ -44,14 +53,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
 
+            User user = userRepository.findById(Long.parseLong(userId))
+                    .orElseThrow(() -> new NotFoundException(UserErrorStatus.USER_NOT_EXIST));
+            Role role = user.getRole();
+
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority(role.getKey()));
+
             AbstractAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(userId, null, AuthorityUtils.NO_AUTHORITIES);
+                    new UsernamePasswordAuthenticationToken(userId, null, authorities);
             authenticationToken.setDetails(new WebAuthenticationDetailsSource()
                     .buildDetails(request));
+
             SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
             securityContext.setAuthentication(authenticationToken);
-
             SecurityContextHolder.setContext(securityContext);
+
         } catch (Exception exception) {
             exception.printStackTrace();
         }
