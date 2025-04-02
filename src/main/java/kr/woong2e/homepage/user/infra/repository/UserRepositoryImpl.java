@@ -16,6 +16,11 @@ public class UserRepositoryImpl implements UserRepository {
     private final UserMapper userMapper;
 
     @Override
+    public boolean existsByLoginId(String loginId) {
+        return false;
+    }
+
+    @Override
     public Optional<User> findById(Long userId) {
         return userJpaRepository.findById(userId)
                 .map(userMapper::toDomain);
