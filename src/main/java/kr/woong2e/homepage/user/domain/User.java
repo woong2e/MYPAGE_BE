@@ -1,4 +1,4 @@
-package kr.woong2e.homepage.user.domain.domain;
+package kr.woong2e.homepage.user.domain;
 
 import kr.woong2e.homepage.user.domain.value.Role;
 import kr.woong2e.homepage.user.domain.value.SocialProvider;

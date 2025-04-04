@@ -1,6 +1,6 @@
 package kr.woong2e.homepage.user.infra.mapper;
 
-import kr.woong2e.homepage.user.domain.domain.User;
+import kr.woong2e.homepage.user.domain.User;
 import kr.woong2e.homepage.user.infra.entity.UserEntity;
 import org.springframework.stereotype.Component;
 
