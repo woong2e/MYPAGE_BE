@@ -4,14 +4,16 @@ import jakarta.persistence.*;
 import kr.woong2e.homepage.user.domain.value.Role;
 import kr.woong2e.homepage.user.domain.value.SocialProvider;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "users")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "users")
+@AllArgsConstructor
 public class UserEntity {
 
     @Id
