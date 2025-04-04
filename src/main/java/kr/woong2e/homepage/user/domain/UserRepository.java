@@ -1,6 +1,4 @@
-package kr.woong2e.homepage.user.domain.repository;
-
-import kr.woong2e.homepage.user.domain.domain.User;
+package kr.woong2e.homepage.user.domain;
 
 import java.util.Optional;
 

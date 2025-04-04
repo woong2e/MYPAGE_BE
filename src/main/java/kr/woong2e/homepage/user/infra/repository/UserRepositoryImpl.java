@@ -1,7 +1,7 @@
 package kr.woong2e.homepage.user.infra.repository;
 
-import kr.woong2e.homepage.user.domain.domain.User;
-import kr.woong2e.homepage.user.domain.repository.UserRepository;
+import kr.woong2e.homepage.user.domain.User;
+import kr.woong2e.homepage.user.domain.UserRepository;
 import kr.woong2e.homepage.user.infra.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
