@@ -1,6 +1,8 @@
 package kr.woong2e.homepage.auth.api;
 
 import jakarta.validation.Valid;
+import kr.woong2e.homepage.auth.api.request.CheckCertificationRequestDto;
+import kr.woong2e.homepage.auth.api.request.EmailCertificationRequestDto;
 import kr.woong2e.homepage.auth.api.request.IdCheckRequestDto;
 import kr.woong2e.homepage.auth.application.service.AuthService;
 import kr.woong2e.homepage.global.response.SuccessResponse;
@@ -23,4 +25,21 @@ public class AuthController {
         authService.idCheck(requestBody);
         return SuccessResponse.from(SuccessStatus.SUCCESS);
     }
+
+    @PostMapping("email-certification")
+    public ResponseEntity<SuccessResponse<?>> emailCertification(
+            @RequestBody @Valid EmailCertificationRequestDto requestBody
+    ) {
+        authService.emailCertification(requestBody);
+        return SuccessResponse.from(SuccessStatus.SUCCESS);
+    }
+
+    @PostMapping("check-certification")
+    public ResponseEntity<SuccessResponse<?>> checkCertification(
+            @RequestBody @Valid CheckCertificationRequestDto requestBody
+    ) {
+        authService.checkCertification(requestBody);
+        return SuccessResponse.from(SuccessStatus.SUCCESS);
+    }
 }
+
