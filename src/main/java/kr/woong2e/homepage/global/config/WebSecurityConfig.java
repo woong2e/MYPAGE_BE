@@ -46,7 +46,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/board/**", "/api/v1/user/*").permitAll()
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
-                .oauth2Login(Customizer.withDefaults())
+//                .oauth2Login(Customizer.withDefaults())
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint((new FailedAuthenticationEntryPoint())));
 
