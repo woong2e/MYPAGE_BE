@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import kr.woong2e.homepage.auth.api.request.CheckCertificationRequestDto;
 import kr.woong2e.homepage.auth.api.request.EmailCertificationRequestDto;
 import kr.woong2e.homepage.auth.api.request.IdCheckRequestDto;
+import kr.woong2e.homepage.auth.api.request.SignUpRequestDto;
 import kr.woong2e.homepage.auth.application.service.AuthService;
 import kr.woong2e.homepage.global.response.SuccessResponse;
 import kr.woong2e.homepage.global.response.status.SuccessStatus;
@@ -39,6 +40,14 @@ public class AuthController {
             @RequestBody @Valid CheckCertificationRequestDto requestBody
     ) {
         authService.checkCertification(requestBody);
+        return SuccessResponse.from(SuccessStatus.SUCCESS);
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<SuccessResponse<?>> signup(
+            @RequestBody SignUpRequestDto signUpRequestDto
+    ) {
+        authService.signUp(signUpRequestDto);
         return SuccessResponse.from(SuccessStatus.SUCCESS);
     }
 }
