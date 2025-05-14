@@ -7,4 +7,6 @@ public interface CertificationRepository {
     void save(Certification certification);
 
     Optional<Certification> findByLoginId(String loginId);
+
+    void delete(Certification certification);
 }

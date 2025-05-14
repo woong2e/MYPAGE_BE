@@ -1,8 +1,8 @@
 package kr.woong2e.homepage.auth.infra.repository;
 
+import jakarta.transaction.Transactional;
 import kr.woong2e.homepage.auth.domain.Certification;
 import kr.woong2e.homepage.auth.domain.CertificationRepository;
-import kr.woong2e.homepage.auth.infra.entity.CertificationEntity;
 import kr.woong2e.homepage.auth.infra.mapper.CertificationMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -25,5 +25,11 @@ public class CertificationRepositoryImpl implements CertificationRepository {
     public Optional<Certification> findByLoginId(String loginId) {
         return certificationJpaRepository.findById(loginId)
                 .map(certificationMapper::toDomain);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Certification certification) {
+        certificationJpaRepository.delete(certificationMapper.toEntity(certification));
     }
 }
