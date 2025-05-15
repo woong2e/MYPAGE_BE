@@ -1,5 +1,6 @@
 package kr.woong2e.homepage.user.domain;
 
+import kr.woong2e.homepage.auth.api.request.SignUpRequestDto;
 import kr.woong2e.homepage.user.domain.value.Role;
 import kr.woong2e.homepage.user.domain.value.SocialProvider;
 import lombok.AccessLevel;
@@ -34,8 +35,21 @@ public class User {
 
     private LocalDateTime modifyDate;
 
-    public static User of(Long userId, String nickname, String email, String profileImage, Role role, LocalDateTime createDate) {
-        return new User(userId, null, null, nickname, email, profileImage, role, null, null, createDate, null);
+    public static User of(Long userId, String loginId, String password, String nickname, String email,
+                          String profileImage, Role role, SocialProvider provider, String providerId,
+                          LocalDateTime createDate, LocalDateTime modifyDate) {
+        return new User(
+                userId, loginId, password, nickname, email,
+                profileImage, role, provider, providerId,
+                createDate, modifyDate);
 
+    }
+
+    public static User create(SignUpRequestDto dto, String encodedPassword) {
+        return new User(
+                null, dto.loginId(), encodedPassword, dto.nickname(), dto.email(),
+                null, Role.USER, null, null,
+                LocalDateTime.now(), LocalDateTime.now()
+        );
     }
 }
