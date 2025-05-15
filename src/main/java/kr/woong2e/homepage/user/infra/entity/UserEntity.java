@@ -52,8 +52,12 @@ public class UserEntity {
     @Column(name = "modify_date")
     private LocalDateTime modifyDate;
 
-//    public static UserEntity of(String nickname, String email, String profileImage, Role role, LocalDateTime createDate) {
-//        return new UserEntity(null, null, nickname, email, profileImage, role, null, null, createDate, null);
-//    }
-
+    public static UserEntity of(Long userId, String loginId, String password, String nickname, String email,
+                                String profileImage, Role role, SocialProvider provider, String providerId,
+                                LocalDateTime createDate, LocalDateTime modifyDate) {
+        return new UserEntity(
+                userId, loginId, password, nickname, email,
+                profileImage, role, provider, providerId,
+                createDate, modifyDate);
+    }
 }
