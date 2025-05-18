@@ -7,21 +7,35 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
 
-//    public UserEntity toEntity(User users){
-//        return UserEntity.of(
-//                users.getEmail(),
-//                users.getPassword()
-//        );
-//    }
+    public UserEntity toEntity(User user){
+        return UserEntity.of(
+                user.getId(),
+                user.getLoginId(),
+                user.getPassword(),
+                user.getNickname(),
+                user.getEmail(),
+                user.getProfileImage(),
+                user.getRole(),
+                user.getProvider(),
+                user.getProviderId(),
+                user.getCreateDate(),
+                user.getModifyDate()
+        );
+    }
 
     public User toDomain(UserEntity userEntity){
         return User.of(
                 userEntity.getId(),
+                userEntity.getLoginId(),
+                userEntity.getPassword(),
                 userEntity.getNickname(),
                 userEntity.getEmail(),
                 userEntity.getProfileImage(),
                 userEntity.getRole(),
-                userEntity.getCreateDate()
+                userEntity.getProvider(),
+                userEntity.getProviderId(),
+                userEntity.getCreateDate(),
+                null
         );
     }
 }
