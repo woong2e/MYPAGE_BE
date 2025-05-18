@@ -16,8 +16,13 @@ public class UserRepositoryImpl implements UserRepository {
     private final UserMapper userMapper;
 
     @Override
+    public void save(User user) {
+        userJpaRepository.save(userMapper.toEntity(user));
+    }
+
+    @Override
     public boolean existsByLoginId(String loginId) {
-        return false;
+        return userJpaRepository.existsByLoginId(loginId);
     }
 
     @Override
