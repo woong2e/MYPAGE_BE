@@ -5,6 +5,7 @@ import kr.woong2e.homepage.auth.api.request.CheckCertificationRequestDto;
 import kr.woong2e.homepage.auth.api.request.EmailCertificationRequestDto;
 import kr.woong2e.homepage.auth.api.request.IdCheckRequestDto;
 import kr.woong2e.homepage.auth.api.request.SignUpRequestDto;
+import kr.woong2e.homepage.auth.application.response.IdCheckResponseDto;
 import kr.woong2e.homepage.auth.application.service.AuthService;
 import kr.woong2e.homepage.global.response.SuccessResponse;
 import kr.woong2e.homepage.global.response.status.SuccessStatus;
@@ -20,11 +21,11 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/id-check")
-    public ResponseEntity<SuccessResponse<?>> idCheck(
+    public ResponseEntity<SuccessResponse<IdCheckResponseDto>> idCheck(
             @RequestBody @Valid IdCheckRequestDto requestBody
     ) {
-        authService.idCheck(requestBody);
-        return SuccessResponse.from(SuccessStatus.SUCCESS);
+        IdCheckResponseDto response = authService.idCheck(requestBody);
+        return SuccessResponse.of(SuccessStatus.SUCCESS, response);
     }
 
     @PostMapping("email-certification")
