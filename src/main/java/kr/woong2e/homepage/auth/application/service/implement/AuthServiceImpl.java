@@ -4,6 +4,7 @@ import kr.woong2e.homepage.auth.api.request.CheckCertificationRequestDto;
 import kr.woong2e.homepage.auth.api.request.EmailCertificationRequestDto;
 import kr.woong2e.homepage.auth.api.request.IdCheckRequestDto;
 import kr.woong2e.homepage.auth.api.request.SignUpRequestDto;
+import kr.woong2e.homepage.auth.application.response.IdCheckResponseDto;
 import kr.woong2e.homepage.auth.application.response.status.AuthErrorStatus;
 import kr.woong2e.homepage.auth.application.service.AuthService;
 import kr.woong2e.homepage.auth.domain.Certification;
@@ -24,16 +25,11 @@ public class AuthServiceImpl implements AuthService {
     private final CertificationRepository certificationRepository;
     private final EmailProvider emailProvider;
     private final PasswordEncoder encoder;
-    
+
     @Override
-    public void idCheck(IdCheckRequestDto idCheckRequestDto) {
+    public IdCheckResponseDto idCheck(IdCheckRequestDto idCheckRequestDto) {
         String loginId = idCheckRequestDto.getLoginId();
-        boolean isExistsId = userRepository.existsByLoginId(loginId);
-
-        if (isExistsId) {
-            throw new CustomException(AuthErrorStatus.DUPLICATED_ID);
-        }
-
+        return new IdCheckResponseDto(userRepository.existsByLoginId(loginId));
     }
 
     @Override
