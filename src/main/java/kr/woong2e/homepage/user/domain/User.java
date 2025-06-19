@@ -48,7 +48,7 @@ public class User {
     public static User create(SignUpRequestDto dto, String encodedPassword) {
         return new User(
                 null, dto.loginId(), encodedPassword, dto.nickname(), dto.email(),
-                null, Role.USER, null, null,
+                null, Role.USER, SocialProvider.LOCAL, null,
                 LocalDateTime.now(), LocalDateTime.now()
         );
     }
