@@ -70,6 +70,10 @@ public class AuthServiceImpl implements AuthService {
             throw new CustomException(AuthErrorStatus.DUPLICATED_ID);
         }
 
+        if (!signUpRequestDto.password().equals(signUpRequestDto.passwordCheck())) {
+            throw new CustomException(AuthErrorStatus.NOT_MATCHED_PASSWORD);
+        }
+
         Certification certification = certificationRepository.findByLoginId(loginId)
                 .orElseThrow(() -> new CustomException(AuthErrorStatus.CERTIFICATION_NOT_EXIST));
 
