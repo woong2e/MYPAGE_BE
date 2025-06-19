@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 public class CertificationEntity {
 
     @Id
+    @Column(name = "login_id")
     private String loginId;
 
     @Column(name = "email")
