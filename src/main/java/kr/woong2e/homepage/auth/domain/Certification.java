@@ -1,7 +1,7 @@
 package kr.woong2e.homepage.auth.domain;
 
 import kr.woong2e.homepage.auth.application.response.status.AuthErrorStatus;
-import kr.woong2e.homepage.global.exception.CustomException;
+import kr.woong2e.homepage.global.util.AssertUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,13 +34,8 @@ public class Certification {
     }
 
     public void verify(String email, String inputCode) {
-        if (!this.email.equals(email)) {
-            throw new CustomException(AuthErrorStatus.INVALID_EMAIL);
-        }
-        if (!this.certificationNumber.equals(inputCode)) {
-            throw new CustomException(AuthErrorStatus.INVALID_CERTIFICATION_NUMBER);
-        }
-
+        AssertUtil.check(this.email.equals(email), AuthErrorStatus.INVALID_EMAIL);
+        AssertUtil.check(this.certificationNumber.equals(inputCode), AuthErrorStatus.INVALID_CERTIFICATION_NUMBER);
         this.isVerified = true;
     }
 
