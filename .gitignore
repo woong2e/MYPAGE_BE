@@ -42,3 +42,5 @@ out/
 /docker-compose.yml
 /deploy.sh
 /default.conf.template
+/client_secret_605866560003-6rde0l99un2jkprbc65867e6k56fcgj7.apps.googleusercontent.com.json
+/src/main/resources/sql/
