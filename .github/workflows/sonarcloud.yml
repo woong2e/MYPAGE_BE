@@ -43,3 +43,5 @@ jobs:
           projectKey: woong2e_MYPAGE_BE
           organization: woong2e
           token: ${{ secrets.SONAR_TOKEN }}
+          args: >
+            -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/test/jacocoTestReport.xml
