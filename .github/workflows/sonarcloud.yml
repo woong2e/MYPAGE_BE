@@ -42,9 +42,11 @@ jobs:
       # SonarCloud 분석 (커버리지 연동)
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          projectKey: woong2e_MYPAGE_BE
-          organization: woong2e
-          token: ${{ secrets.SONAR_TOKEN }}
           args: >
+            -Dsonar.projectKey=woong2e_MYPAGE_BE
+            -Dsonar.organization=woong2e
+            -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/test/jacocoTestReport.xml
