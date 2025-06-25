@@ -1,0 +1,49 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  application:
+    name: "homepage"
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/test
+    username: sa
+    password:
+
+  jpa:
+    show_sql: true
+    hibernate:
+      ddl-auto: create
+
+  security:
+    user:
+      name: testuser
+      password: testpassword
+
+  mail:
+    host: smtp.example.com
+    port: 1025
+    username: example@example.com
+    password: examplePassword
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+
+jwt:
+  secret: JwtSecretKeyExample
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
