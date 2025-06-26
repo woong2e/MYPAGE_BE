@@ -15,6 +15,15 @@ java {
 	}
 }
 
+sonarqube {
+	properties {
+		property "sonar.projectKey", "woong2e_MYPAGE_BE"
+		property "sonar.organization", "woong2e"
+		property "sonar.host.url", "https://sonarcloud.io"
+		property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
+	}
+}
+
 jacoco {
 	toolVersion = "0.8.11"
 }
