@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.woong2e.homepage.profile.ProfileMapper">
+
+    <!-- 프로필 조회 (id로) -->
+    <select id="selectProfile" parameterType="long" resultType="kr.woong2e.homepage.profile.Profile">
+        SELECT
+            id,
+            name,
+            age,
+            school,
+            major,
+            email,
+            bio,
+            company,
+            location,
+            website,
+            github_url AS githubUrl,
+            velog_url AS velogUrl,
+            instagram_url AS instagramUrl,
+            linkedin_url AS linkedinUrl,
+            profile_image_url AS profileImageUrl,
+            project1_name AS project1Name,
+            project1_url AS project1Url,
+            project2_name AS project2Name,
+            project2_url AS project2Url,
+            project3_name AS project3Name,
+            project3_url AS project3Url,
+            project4_name AS project4Name,
+            project4_url AS project4Url,
+            custom_readme AS customReadme
+        FROM profile
+        WHERE id = #{id}
+    </select>
+
+    <!-- 프로필 수정 (update) -->
+    <update id="updateProfile" parameterType="kr.woong2e.homepage.profile.Profile">
+        UPDATE profile
+        SET
+            name = #{name},
+            age = #{age},
+            school = #{school},
+            major = #{major},
+            email = #{email},
+            bio = #{bio},
+            company = #{company},
+            location = #{location},
+            website = #{website},
+            github_url = #{githubUrl},
+            velog_url = #{velogUrl},
+            instagram_url = #{instagramUrl},
+            linkedin_url = #{linkedinUrl},
+            profile_image_url = #{profileImageUrl},
+            project1_name = #{project1Name},
+            project1_url = #{project1Url},
+            project2_name = #{project2Name},
+            project2_url = #{project2Url},
+            project3_name = #{project3Name},
+            project3_url = #{project3Url},
+            project4_name = #{project4Name},
+            project4_url = #{project4Url},
+            custom_readme = #{customReadme}
+        WHERE id = #{id}
+    </update>
+
+</mapper>
